@@ -1,0 +1,345 @@
+{
+  "schema": "almanac.history.v1",
+  "event": "Winter Storm Uri price-stress window",
+  "observed": [
+    {
+      "interval_start": "2021-02-14T16:00:00-06:00",
+      "interval_end": "2021-02-14T16:15:00-06:00",
+      "available_at": "2021-02-14T16:15:00-06:00",
+      "spp_usd_per_mwh": "1955.55",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T16:15:00-06:00",
+      "interval_end": "2021-02-14T16:30:00-06:00",
+      "available_at": "2021-02-14T16:30:00-06:00",
+      "spp_usd_per_mwh": "2175.10",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T16:30:00-06:00",
+      "interval_end": "2021-02-14T16:45:00-06:00",
+      "available_at": "2021-02-14T16:45:00-06:00",
+      "spp_usd_per_mwh": "2382.96",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T16:45:00-06:00",
+      "interval_end": "2021-02-14T17:00:00-06:00",
+      "available_at": "2021-02-14T17:00:00-06:00",
+      "spp_usd_per_mwh": "2468.14",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T17:00:00-06:00",
+      "interval_end": "2021-02-14T17:15:00-06:00",
+      "available_at": "2021-02-14T17:15:00-06:00",
+      "spp_usd_per_mwh": "2341.72",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T17:15:00-06:00",
+      "interval_end": "2021-02-14T17:30:00-06:00",
+      "available_at": "2021-02-14T17:30:00-06:00",
+      "spp_usd_per_mwh": "2400.45",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T17:30:00-06:00",
+      "interval_end": "2021-02-14T17:45:00-06:00",
+      "available_at": "2021-02-14T17:45:00-06:00",
+      "spp_usd_per_mwh": "4090.87",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T17:45:00-06:00",
+      "interval_end": "2021-02-14T18:00:00-06:00",
+      "available_at": "2021-02-14T18:00:00-06:00",
+      "spp_usd_per_mwh": "5579.52",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T18:00:00-06:00",
+      "interval_end": "2021-02-14T18:15:00-06:00",
+      "available_at": "2021-02-14T18:15:00-06:00",
+      "spp_usd_per_mwh": "4347.53",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T18:15:00-06:00",
+      "interval_end": "2021-02-14T18:30:00-06:00",
+      "available_at": "2021-02-14T18:30:00-06:00",
+      "spp_usd_per_mwh": "4324.28",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T18:30:00-06:00",
+      "interval_end": "2021-02-14T18:45:00-06:00",
+      "available_at": "2021-02-14T18:45:00-06:00",
+      "spp_usd_per_mwh": "4084.39",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T18:45:00-06:00",
+      "interval_end": "2021-02-14T19:00:00-06:00",
+      "available_at": "2021-02-14T19:00:00-06:00",
+      "spp_usd_per_mwh": "4047.96",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T19:00:00-06:00",
+      "interval_end": "2021-02-14T19:15:00-06:00",
+      "available_at": "2021-02-14T19:15:00-06:00",
+      "spp_usd_per_mwh": "4923.90",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T19:15:00-06:00",
+      "interval_end": "2021-02-14T19:30:00-06:00",
+      "available_at": "2021-02-14T19:30:00-06:00",
+      "spp_usd_per_mwh": "4189.49",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T19:30:00-06:00",
+      "interval_end": "2021-02-14T19:45:00-06:00",
+      "available_at": "2021-02-14T19:45:00-06:00",
+      "spp_usd_per_mwh": "3178.38",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T19:45:00-06:00",
+      "interval_end": "2021-02-14T20:00:00-06:00",
+      "available_at": "2021-02-14T20:00:00-06:00",
+      "spp_usd_per_mwh": "4140.58",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T20:00:00-06:00",
+      "interval_end": "2021-02-14T20:15:00-06:00",
+      "available_at": "2021-02-14T20:15:00-06:00",
+      "spp_usd_per_mwh": "3918.62",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T20:15:00-06:00",
+      "interval_end": "2021-02-14T20:30:00-06:00",
+      "available_at": "2021-02-14T20:30:00-06:00",
+      "spp_usd_per_mwh": "3643.60",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T20:30:00-06:00",
+      "interval_end": "2021-02-14T20:45:00-06:00",
+      "available_at": "2021-02-14T20:45:00-06:00",
+      "spp_usd_per_mwh": "4015.68",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T20:45:00-06:00",
+      "interval_end": "2021-02-14T21:00:00-06:00",
+      "available_at": "2021-02-14T21:00:00-06:00",
+      "spp_usd_per_mwh": "3631.42",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T21:00:00-06:00",
+      "interval_end": "2021-02-14T21:15:00-06:00",
+      "available_at": "2021-02-14T21:15:00-06:00",
+      "spp_usd_per_mwh": "3965.96",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T21:15:00-06:00",
+      "interval_end": "2021-02-14T21:30:00-06:00",
+      "available_at": "2021-02-14T21:30:00-06:00",
+      "spp_usd_per_mwh": "4185.57",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T21:30:00-06:00",
+      "interval_end": "2021-02-14T21:45:00-06:00",
+      "available_at": "2021-02-14T21:45:00-06:00",
+      "spp_usd_per_mwh": "3971.61",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T21:45:00-06:00",
+      "interval_end": "2021-02-14T22:00:00-06:00",
+      "available_at": "2021-02-14T22:00:00-06:00",
+      "spp_usd_per_mwh": "3701.99",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T22:00:00-06:00",
+      "interval_end": "2021-02-14T22:15:00-06:00",
+      "available_at": "2021-02-14T22:15:00-06:00",
+      "spp_usd_per_mwh": "3489.58",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T22:15:00-06:00",
+      "interval_end": "2021-02-14T22:30:00-06:00",
+      "available_at": "2021-02-14T22:30:00-06:00",
+      "spp_usd_per_mwh": "4648.62",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T22:30:00-06:00",
+      "interval_end": "2021-02-14T22:45:00-06:00",
+      "available_at": "2021-02-14T22:45:00-06:00",
+      "spp_usd_per_mwh": "8720.45",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T22:45:00-06:00",
+      "interval_end": "2021-02-14T23:00:00-06:00",
+      "available_at": "2021-02-14T23:00:00-06:00",
+      "spp_usd_per_mwh": "8768.38",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T23:00:00-06:00",
+      "interval_end": "2021-02-14T23:15:00-06:00",
+      "available_at": "2021-02-14T23:15:00-06:00",
+      "spp_usd_per_mwh": "8791.86",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T23:15:00-06:00",
+      "interval_end": "2021-02-14T23:30:00-06:00",
+      "available_at": "2021-02-14T23:30:00-06:00",
+      "spp_usd_per_mwh": "8564.28",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T23:30:00-06:00",
+      "interval_end": "2021-02-14T23:45:00-06:00",
+      "available_at": "2021-02-14T23:45:00-06:00",
+      "spp_usd_per_mwh": "7336.57",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    },
+    {
+      "interval_start": "2021-02-14T23:45:00-06:00",
+      "interval_end": "2021-02-15T00:00:00-06:00",
+      "available_at": "2021-02-15T00:00:00-06:00",
+      "spp_usd_per_mwh": "4484.23",
+      "unit": "USD/MWh",
+      "location": "LZ_HOUSTON",
+      "point_type": "LZEW",
+      "provenance": "observed"
+    }
+  ],
+  "source": {
+    "publisher": "ERCOT",
+    "report": "NP6-785-ER / 13061",
+    "url": "https://www.ercot.com/misdownload/servlets/mirDownload?doclookupId=814922832",
+    "catalog_url": "https://www.ercot.com/misapp/servlets/IceDocListJsonWS?reportTypeId=13061",
+    "raw_file": "data/raw/rtm_spp_2021.zip",
+    "raw_sha256": "5255421af0d19274e852cd3a8eb6388b88e14238043487852d3cadc4edccd18d",
+    "parquet_sha256": "0c59b8ea2069be3d8c6e893ead3d803fafacd494f5119ec1592df3180ad4e9aa",
+    "sheet": "Feb",
+    "workbook": "rpt.00013061.0000000000000000.RTMLZHBSPP_2021.xlsx",
+    "captured_at_utc": "2026-09-26T01:29:34.483273+00:00",
+    "capture_meaning": "Local extraction and raw/parquet equality verification; original download time unknown",
+    "published_at": null,
+    "availability_assumption": "Replay availability at interval end is simulated; original publication latency unknown. Retrospective settlement values, not an as-published feed.",
+    "timezone": "America/Chicago",
+    "rows": 32,
+    "selection_start": "2021-02-14T16:00:00-06:00",
+    "selection_end_exclusive": "2021-02-15T00:00:00-06:00"
+  }
+}
