@@ -1,7 +1,7 @@
 """Offline fleet experiment. No I/O, hardware adapters, model calls or dispatch.
 
 Plant state is deliberately unavailable to Controller. Exact rational arithmetic
-owns energy and bounds; floats are presentation-only. See docs/fleet-demo.md.
+owns energy and bounds; floats are presentation-only. See docs/geofleet-demo.md.
 """
 from __future__ import annotations
 
@@ -159,11 +159,12 @@ class Device:
 
 class Controller:
     """Telemetry-only policy. No plant, fault schedule, RNG or future input."""
-    def __init__(self, specs: list[dict], target_kw: F, strategy: str, lease_bound_s: int = LEASE_BOUND_S):
+    def __init__(self, specs: list[dict], target_kw: F, strategy: str, lease_bound_s: int = LEASE_BOUND_S, policy=None):
         self.specs = {d['id']: {k: number(d[k]) for k in ('max_kw', 'reserve_kwh')} for d in specs}
         self.lease_bound_s = lease_bound_s
         self.target = target_kw
         self.strategy = strategy
+        self.policy = policy
         self.last = {}
         self.fixed = {d['id']: min(number(d['max_kw']), target_kw / len(specs)) for d in specs}
 
@@ -180,7 +181,11 @@ class Controller:
         caps = {i: min(self.specs[i]['max_kw'], max(F(0), p.energy_kwh - self.specs[i]['reserve_kwh']) * 3600 / CONTROL_S)
                 for i, p in fresh.items()}
         budget = max(F(0), self.target - upper_unknown)
-        if self.strategy == 'baseline':
+        if self.policy is not None:
+            from almanac.controller_contract import decide_checked
+            powers = decide_checked(self.policy, now_s, self.specs, fresh, caps,
+                                    self.target, upper_unknown, self.lease_bound_s)
+        elif self.strategy == 'baseline':
             powers = {i: min(cap, self.fixed[i]) for i, cap in caps.items()}
         else:
             # Equal-share water filling is constrained, not globally optimal.
@@ -217,12 +222,12 @@ class Controller:
                 'fresh': fresh, 'caps': caps, 'state': state, 'reasons': reasons}
 
 
-def run(s: dict, strategy: str, step_s: int) -> dict:
+def run(s: dict, strategy: str, step_s: int, *, controller_policy=None) -> dict:
     """Execute one strategy from fresh initial state on the same seeded plant."""
     rng = random.Random(s['seed'])
     policy = s['lease_policy']
     plants = {d['id']: Device(d, rng.choice(policy['local_expiry_s']), policy['lease_bound_s']) for d in s['devices']}
-    controller = Controller(s['devices'], number(s['target_kw']), strategy, policy['lease_bound_s'])
+    controller = Controller(s['devices'], number(s['target_kw']), strategy, policy['lease_bound_s'], controller_policy)
     cached = {i: Telemetry(i, -CONTROL_S, p.energy) for i, p in plants.items()}
     rows, actions = [], []
     delivered, shortfall = F(0), F(0)
@@ -279,7 +284,11 @@ def run(s: dict, strategy: str, step_s: int) -> dict:
                                       'capacity_kwh': p.spec['capacity_kwh'], 'reserve_kwh': display(p.reserve),
                                       'max_kw': display(p.maximum), 'average_kw': display(used_by_device[i] * 3600 / CONTROL_S),
                                       'local_expiry_s': p.expires_s} for i, p in plants.items()]})
-    return {'initial_state_sha256': digest(s['devices']), 'scenario_sha256': digest(s),
+    from almanac.inspector import annotate
+    identity = {'id': controller_policy.policy_id, 'version': controller_policy.policy_version} if controller_policy else {'id': strategy, 'version': '1'}
+    events = annotate(rows, actions, list(plants), identity)
+    return {'controller': identity, 'events': events,
+            'initial_state_sha256': digest(s['devices']), 'scenario_sha256': digest(s),
             'metrics': dict(counts, delivered_kwh=display(delivered), shortfall_kwh=display(shortfall),
                             requested_kwh=display(controller.target * s['duration_s'] / 3600),
                             exact_delivered_kwh=str(delivered), exact_shortfall_kwh=str(shortfall),
