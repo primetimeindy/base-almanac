@@ -21,4 +21,4 @@ Publisher: ERCOT. Report NP6-785-ER / 13061, Houston load-zone LZEW settlement p
 
 The full-year raw ZIP and parsed parquet caches are not distributed here. Source metadata paths refer to the original extraction inputs, not bundled files. `src/almanac/ercot_prices.py` supplies the optional ingestion workflow. This demo uses retrospective settlement prices; interval-end availability is a simulation assumption because original publication latency is unknown. Prices are not outage observations or proof of a dispatch requirement.
 
-The data remains attributable to its publishers and subject to their applicable terms; this repository does not relicense third-party material or claim endorsement. No new software license has been selected for the project.
+The data remains attributable to its publishers and subject to their applicable terms; this repository does not relicense third-party material or claim endorsement. The project software is licensed under the [MIT License](../LICENSE); that license does not relicense third-party data.

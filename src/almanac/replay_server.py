@@ -1,7 +1,7 @@
 """Local-only, stateless replay server. No physical or commercial integrations."""
 import argparse
 import json
-from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from almanac.local_http import LocalHandler, BoundedHTTPServer as Server, strict_json
 from pathlib import Path
 from almanac.replay import replay, canonical, validate_bundle
 from almanac.fleet import compare
@@ -11,7 +11,7 @@ def make_handler(bundle):
     validate_bundle(bundle)
     # Compute once per local server, never accept external control/scenario input.
     fleet_receipt = canonical(compare()).encode()
-    class Handler(BaseHTTPRequestHandler):
+    class Handler(LocalHandler):
         def send(self,status,body,kind='application/json',attachment=None):
             self.send_response(status)
             if attachment: self.send_header('Content-Disposition', f'attachment; filename="{attachment}"')
@@ -31,17 +31,17 @@ def make_handler(bundle):
             try:
                 size=int(self.headers.get('Content-Length','0'))
                 if not 0<size<=16384: raise ValueError('invalid body size')
-                payload=json.loads(self.rfile.read(size))
+                payload=strict_json(self.rfile.read(size))
                 if not isinstance(payload,dict) or set(payload)!={'commands'}: raise ValueError('commands required')
                 result=replay(bundle,payload['commands'])
-            except (ValueError,TypeError) as exc: return self.send(400,canonical({'error':str(exc)}).encode())
+            except (ValueError,TypeError,TimeoutError) as exc: return self.send(400,canonical({'error':str(exc)}).encode())
             self.send(200,canonical(result).encode())
     return Handler
 
 def main():
     parser=argparse.ArgumentParser(); parser.add_argument('--port',type=int,default=8765); args=parser.parse_args()
     bundle=json.loads((ROOT/'demo/data/uri.json').read_text())
-    server=ThreadingHTTPServer(('127.0.0.1',args.port),make_handler(bundle))
+    server=Server(('127.0.0.1',args.port),make_handler(bundle))
     server.timeout=10
     print(f'Almanac simulation only: http://127.0.0.1:{args.port}',flush=True)
     server.serve_forever()

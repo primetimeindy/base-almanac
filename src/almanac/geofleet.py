@@ -4,12 +4,13 @@ import json
 import math
 import zipfile
 import hashlib
+from copy import deepcopy
 from datetime import datetime, timezone
 from fractions import Fraction
 from pathlib import Path
 from xml.etree import ElementTree as ET
 from almanac.fleet import compare, default_scenario
-from almanac.replay import digest
+from almanac.replay import digest, canonical
 
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE_DIR = ROOT / 'demo/data/beryl'
@@ -98,23 +99,50 @@ def preview(payload: dict) -> dict:
     """Validate one allowlisted preset and return exact selection before simulation."""
     if type(payload) is not dict or set(payload)!={'area'} or type(payload['area']) is not str or payload['area'] not in AREAS:
         raise ValueError('choose one allowlisted area')
-    source=load_source(); pts=positions(); area=AREAS[payload['area']]
-    return {'source':source, 'positions':pts, 'areas':AREAS, 'area':payload['area'],
-            'bounds':area['bounds'], 'selected_ids':select(pts,area['bounds']),
+    source=load_source(); pts=positions(); bounds=list(AREAS[payload['area']]['bounds'])
+    # Detach every preset from the module global: a caller mutating one result must not
+    # corrupt AREAS, another result or a prior experiment receipt.
+    return {'source':source, 'positions':pts, 'areas':deepcopy(AREAS), 'area':payload['area'],
+            'bounds':bounds, 'selected_ids':select(pts,bounds),
             'geometry_rule':'inclusive axis-aligned lon/lat rectangle; exact decimal fractions; no distance buffer or failure probabilities',
             'position_semantics':'fictitious abstract inland points, not addresses or Base deployments'}
 
-def experiment(payload: dict) -> dict:
-    """Run both illustrative controllers with identical initial state and geographic faults."""
+def scenario_for(payload: dict) -> tuple[dict, dict]:
+    """Validate the selection and build its synthetic scenario, before any simulation.
+
+    Returns the preview selection and the scenario. Callers that only need the
+    scenario must go through here rather than rebuilding the fault schedule.
+    """
     selection=preview(payload); ids=selection['selected_ids']
     s=default_scenario(); s['id']='geofleet-beryl-'+payload['area']+'-v1'
     s['faults']=([{'start_s':60,'end_s':360,'kind':'offline','devices':ids}] if ids else [])
+    return selection, s
+
+def experiment(payload: dict) -> dict:
+    """Run both illustrative controllers with identical initial state and geographic faults."""
+    selection, s = scenario_for(payload)
     report={'schema':'almanac.geofleet.v1','selection':selection,
             'causal_contract':{'observed':'NHC post-storm best track, not wind or outage footprint',
                               'intervention':'Operator disconnects all selected simulated communication links at t=60s, reconnects at t=360s',
                               'time':'Historical track is static context; simulation uses synthetic relative seconds, not Beryl timestamps',
-                              'not_modeled':['physical grid outage','wind damage','failure probability','Uri/Beryl price alignment','actual Base controller','user-controller adapter'],
+                              'not_modeled':['physical grid outage','wind damage','failure probability','Uri/Beryl price alignment','actual Base controller','HTTP-uploaded controller code'],
                               'need':'Assume engineering lacks an equivalent tool; not independently verified'},
             'simulation':compare(s)}
+    no_fault_s = json.loads(canonical(s))
+    no_fault_s['faults'] = []
+    no_fault = compare(no_fault_s)
+    def difference(simulation):
+        runs = simulation['strategies']
+        return (Fraction(runs['baseline']['metrics']['exact_shortfall_kwh']) -
+                Fraction(runs['constrained']['metrics']['exact_shortfall_kwh']))
+    fault_delta, control_delta = difference(report['simulation']), difference(no_fault)
+    context = {'no_fault': no_fault,
+               'interpretation': 'Full-run policy differences include reserve redistribution. The difference of differences is not an isolated fault-recovery benefit; fault and reserve effects interact. One synthetic scenario, not empirical performance.'}
+    for name, value in [('fault_run_difference_kwh', fault_delta),
+                        ('no_fault_difference_kwh', control_delta),
+                        ('difference_of_differences_kwh', fault_delta - control_delta)]:
+        context[name] = round(float(value), 9)
+        context['exact_' + name] = str(value)
+    report['comparison_context'] = context
     report['receipt_sha256']=digest(report)
     return report

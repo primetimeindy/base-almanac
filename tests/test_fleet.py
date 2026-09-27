@@ -150,7 +150,16 @@ def test_empty_and_single_device_domains():
     with pytest.raises(ValueError): f.compare(s)
     s = f.default_scenario(); s['devices'] = s['devices'][:1]; s['faults'] = []; s['target_kw'] = 4
     result = f.compare(s)
-    assert result['strategies']['baseline'] == result['strategies']['constrained']
+    baseline = result['strategies']['baseline']
+    constrained = result['strategies']['constrained']
+    # Policy identity differs; every physical and observational result must match.
+    assert baseline['controller'] == {'id': 'baseline', 'version': '1'}
+    assert constrained['controller'] == {'id': 'constrained', 'version': '1'}
+    for key in baseline.keys() - {'controller', 'events'}:
+        assert baseline[key] == constrained[key]
+    assert [{k: v for k, v in e.items() if k != 'controller'} for e in baseline['events']] == [
+        {k: v for k, v in e.items() if k != 'controller'} for e in constrained['events']]
+    assert all(e['controller'] == r['controller'] for r in (baseline, constrained) for e in r['events'])
 
 
 def test_independent_seeded_fault_matrix():
